@@ -20,7 +20,7 @@ public class BotController {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
     @RequestMapping("/")
-    public ResponseEntity<String> test(@RequestBody(required = false) Map<String, Object> body, HttpServletRequest request,
+    public ResponseEntity<String> test(@RequestBody(required = false) Map<String, String> body, HttpServletRequest request,
                                        HttpServletResponse response) {
         Enumeration<String> attr = request.getParameterNames();
 
@@ -40,8 +40,8 @@ public class BotController {
         headers.set("Authorization", "Bearer s1dD+yfsd5oNC3jqqY6+SN50nWwbNFFOh1qiN6cCrCYfY4b5qpO8BdJNSHZ9nTxcxsopSytkx9OKsnjT5kPq/fPIBL3TYt6vPMNwG6pZRE5CttgajVjXBlik6D6niNQLyCyx1zpK+IDeHjS41kYkVAdB04t89/1O/w1cDnyilFU=");
 
         String url = "https://api.line.me/v2/bot/message/reply";
-        Map<String, Object> events = (Map)body.get("events");
-        String replyToken = events.get("replyToken").toString();
+//        Map<String, Object> events = (Map)body.get("events");
+        String replyToken = body.get("replyToken");
         logger.info("replying to: "+replyToken);
         HttpEntity<String> entity = new HttpEntity<String>("{\"replyToken\":\""+body.get("replyToken")+"\",\"messages\":[{\"type\":\"text\",\"text\":\"helloooo\"}]}", headers);
 
