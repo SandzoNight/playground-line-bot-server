@@ -18,10 +18,11 @@ public class BotController {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
     @RequestMapping("/")
-    public ResponseEntity<String> test(HttpServletRequest request,
+    public ResponseEntity<String> test(@RequestBody(required = false) String body, HttpServletRequest request,
                                        HttpServletResponse response) {
         Enumeration<String> attr = request.getParameterNames();
 
+        logger.info(body);
         while(attr.hasMoreElements()){
             String param = attr.nextElement();
             String ss = request.getParameter(param);
