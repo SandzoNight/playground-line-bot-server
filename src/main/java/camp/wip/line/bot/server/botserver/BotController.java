@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.Map;
@@ -40,8 +41,8 @@ public class BotController {
         headers.set("Authorization", "Bearer s1dD+yfsd5oNC3jqqY6+SN50nWwbNFFOh1qiN6cCrCYfY4b5qpO8BdJNSHZ9nTxcxsopSytkx9OKsnjT5kPq/fPIBL3TYt6vPMNwG6pZRE5CttgajVjXBlik6D6niNQLyCyx1zpK+IDeHjS41kYkVAdB04t89/1O/w1cDnyilFU=");
 
         String url = "https://api.line.me/v2/bot/message/reply";
-//        Map<String, Object> events = (Map)body.get("events");
-        String replyToken = body.get("replyToken").toString();
+        ArrayList<Map<String, Object>> events = (ArrayList<Map<String, Object>>) body.get("events");
+        String replyToken = events.get(0).get("replyToken").toString();
         logger.info("replying to: "+replyToken);
         HttpEntity<String> entity = new HttpEntity<String>("{\"replyToken\":\""+replyToken+"\",\"messages\":[{\"type\":\"text\",\"text\":\"helloooo\"}]}", headers);
 
