@@ -20,7 +20,7 @@ public class BotController {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
     @RequestMapping("/")
-    public ResponseEntity<String> test(@RequestBody(required = false) Map<String, String> body, HttpServletRequest request,
+    public ResponseEntity<String> test(@RequestBody(required = false) Map<String, Object> body, HttpServletRequest request,
                                        HttpServletResponse response) {
         Enumeration<String> attr = request.getParameterNames();
 
@@ -41,9 +41,9 @@ public class BotController {
 
         String url = "https://api.line.me/v2/bot/message/reply";
 //        Map<String, Object> events = (Map)body.get("events");
-        String replyToken = body.get("replyToken");
+        String replyToken = body.get("replyToken").toString();
         logger.info("replying to: "+replyToken);
-        HttpEntity<String> entity = new HttpEntity<String>("{\"replyToken\":\""+body.get("replyToken")+"\",\"messages\":[{\"type\":\"text\",\"text\":\"helloooo\"}]}", headers);
+        HttpEntity<String> entity = new HttpEntity<String>("{\"replyToken\":\""+replyToken+"\",\"messages\":[{\"type\":\"text\",\"text\":\"helloooo\"}]}", headers);
 
         restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
 
